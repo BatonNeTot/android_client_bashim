@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="@dimen/comics_title_padding"
+
+        style="@style/RegularText"
+        android:text="Месяц"
+        android:textSize="@dimen/comics_title_size"/>
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/headers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:orientation="horizontal"
+        app:columnCount="@integer/comics_header_grid_count"/>
+
+</LinearLayout>

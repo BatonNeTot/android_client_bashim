@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="toastColor">#353A3E</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="onStartColor">#7f7f7f</color>
+
+    <color name="refresherLight">#000000</color>
+    <color name="refresherBackgroundLight">#ffffff</color>
+
+    <color name="refresherDark">#ffffff</color>
+    <color name="refresherBackgroundDark">#404040</color>
+
+    <color name="textBlack">#000000</color>
+    <color name="textGreyDark">#3f3f3f</color>
+    <color name="textGrey">#7f7f7f</color>
+    <color name="textGreyLight">#bfbfbf</color>
+    <color name="textWhite">#ffffff</color>
+
+    <color name="menuIconBackgroundLight">#dbdbdb</color>
+    <color name="menuIconBackgroundDark">#202020</color>
+
+    <color name="linkColorLight">#0055cc</color>
+    <color name="linkColorDark">#0077cc</color>
+
+    <color name="dateColorLight">#909090</color>
+    <color name="dateColorDark">#909090</color>
+
+    <color name="darkBarLight">#7f7f7f</color>
+    <color name="barLight">#e7e7e7</color>
+    <color name="headerLight">#fbfbfb</color>
+    <color name="headerTextLight">@color/textBlack</color>
+    <color name="backgroundLight">#fbfbfb</color>
+
+    <color name="backgroundTextLight">#f3f3f3</color>
+    <color name="backgroundTextStrokeLight">#bbbbbb</color>
+
+
+    <color name="darkBarDark">#000000</color>
+    <color name="barDark">#000000</color>
+    <color name="headerDark">#202020</color>
+    <color name="headerTextDark">@color/textWhite</color>
+    <color name="backgroundDark">#303030</color>
+
+    <color name="backgroundTextDark">#404040</color>
+    <color name="backgroundTextStrokeDark">#888888</color>
+</resources>

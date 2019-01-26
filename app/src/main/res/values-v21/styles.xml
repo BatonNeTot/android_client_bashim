@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="GeneralLight.WithStatusBar" parent="GeneralLight">
+        <item name="android:colorPrimaryDark">@color/darkBarLight</item>
+        <item name="android:colorPrimary">@color/headerLight</item>
+    </style>
+
+    <style name="GeneralDark.WithStatusBar" parent="GeneralDark">
+        <item name="android:colorPrimaryDark">@color/darkBarDark</item>
+        <item name="android:colorPrimary">@color/headerDark</item>
+    </style>
+
+</resources>

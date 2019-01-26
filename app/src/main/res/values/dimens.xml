@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="quote_header_text_size">15sp</dimen>
+
+    <dimen name="quote_body_text_size">15sp</dimen>
+
+    <dimen name="quote_rate_button_height">40dp</dimen>
+    <dimen name="quote_rate_button_margin">15dp</dimen>
+    <dimen name="quote_rate_button_margin_v">5dp</dimen>
+    <dimen name="quote_rate_button_size">28dp</dimen>
+    <dimen name="quote_rate_button_wsize">35dp</dimen>
+
+    <dimen name="quote_rate_button_top_margin">10dp</dimen>
+    <dimen name="quote_rate_value_top_margin">10dp</dimen>
+
+    <dimen name="quote_rate_text_size">18sp</dimen>
+
+    <dimen name="quote_margin">5dp</dimen>
+
+    <dimen name="quote_text_padding">10dp</dimen>
+    <dimen name="quote_text_background_stroke_width">1dp</dimen>
+    <dimen name="quote_text_background_stroke_dash_gap">1dp</dimen>
+    <dimen name="quote_text_background_stroke_dash_width">1dp</dimen>
+
+    <dimen name="loading_margin">30dp</dimen>
+    <dimen name="loading_size">30dp</dimen>
+
+    <dimen name="link_text_height">30sp</dimen>
+    <dimen name="link_image_size">40dp</dimen>
+    <dimen name="link_image_margin">5dp</dimen>
+    <dimen name="link_text_margin">15dp</dimen>
+
+    <dimen name="comics_title_size">18sp</dimen>
+    <dimen name="comics_title_padding">10dp</dimen>
+
+    <dimen name="menu_big_icon_size">100dp</dimen>
+    <dimen name="menu_big_icon_margin_top">30dp</dimen>
+    <dimen name="menu_big_icon_margin_bottom">10dp</dimen>
+
+    <dimen name="menu_header_left_margin">20dp</dimen>
+    <dimen name="menu_header_padding">10dp</dimen>
+    <dimen name="menu_header_size">18sp</dimen>
+
+    <dimen name="menu_width">224dp</dimen>
+
+    <dimen name="menu_sub_left_margin">40dp</dimen>
+    <dimen name="menu_sub_padding">10dp</dimen>
+    <dimen name="menu_sub_size">18sp</dimen>
+
+    <dimen tools:override="true" name="design_navigation_icon_padding">5dp</dimen>
+
+    <dimen name="settings_text_size">15sp</dimen>
+    <dimen name="settings_divider">15dp</dimen>
+    <dimen name="settings_margin">10dp</dimen>
+
+</resources>

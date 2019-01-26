@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <fraction name="maxFade">0.0</fraction>
+    <fraction name="noneFade">1.0</fraction>
+
+    <integer name="duration">250</integer>
+</resources>

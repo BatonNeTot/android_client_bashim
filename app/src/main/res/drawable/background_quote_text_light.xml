@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="@color/backgroundTextLight"/>
+            <stroke
+                android:color="@color/backgroundTextStrokeLight"
+                android:width="@dimen/quote_text_background_stroke_width"
+                android:dashGap="@dimen/quote_text_background_stroke_dash_gap"
+                android:dashWidth="@dimen/quote_text_background_stroke_dash_width"/>
+        </shape>
+    </item>
+</layer-list>

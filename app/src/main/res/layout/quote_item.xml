@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/quote_text_padding"
+    android:paddingLeft="@dimen/quote_text_padding"
+    android:paddingEnd="@dimen/quote_text_padding"
+    android:paddingRight="@dimen/quote_text_padding"
+    android:paddingBottom="@dimen/quote_text_padding">
+
+    <include layout="@layout/quote_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginTop="@dimen/quote_margin"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="@dimen/quote_text_padding"
+
+        style="@style/QuoteBackground">
+
+        <include layout="@layout/quote_body" />
+
+    </FrameLayout>
+
+    <include layout="@layout/header_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginTop="@dimen/quote_margin">
+
+    </include>
+
+</LinearLayout>

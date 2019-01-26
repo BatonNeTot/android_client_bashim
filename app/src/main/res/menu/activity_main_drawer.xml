@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/groupLink"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navNew"
+            android:title="@string/link_new"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navRandomTitle"
+            android:title="@string/link_random_title_down"
+            app:actionViewClass="android.widget.TextView" />
+        <item
+            android:id="@+id/navRandomOnline"
+            android:title="@string/link_random_online"
+            app:actionViewClass="android.widget.TextView" />
+        <item
+            android:id="@+id/navRandomOffline"
+            android:title="@string/link_random_offline"
+            app:actionViewClass="android.widget.TextView" />
+        <item
+            android:id="@+id/navBestTitle"
+            android:title="@string/link_best_title_down"
+            app:actionViewClass="android.widget.TextView" />
+        <item
+            android:id="@+id/navBestToday"
+            android:title="@string/link_best_today"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navBestMonth"
+            android:title="@string/link_best_month"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navBestYear"
+            android:title="@string/link_best_year"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navBestAll"
+            android:title="@string/link_best_all"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navAbyssTitle"
+            android:title="@string/link_abyss_title_down"
+            app:actionViewClass="android.widget.TextView" />
+        <item
+            android:id="@+id/navAbyssNew"
+            android:title="@string/link_abyss_new"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navAbyssTop"
+            android:title="@string/link_abyss_top"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navAbyssBest"
+            android:title="@string/link_abyss_best"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navFavorite"
+            android:title="@string/link_favorite"
+            app:actionViewClass="android.widget.TextView"/>
+        <item
+            android:id="@+id/navComics"
+            android:title="@string/link_comics"
+            app:actionViewClass="android.widget.TextView"/>
+    </group>
+
+    <group
+        android:id="@+id/groupOther">
+        <item
+            android:id="@+id/navSettings"
+            android:title="@string/link_settings"
+            app:actionViewClass="android.widget.TextView" />
+        <item
+            android:id="@+id/navExit"
+            android:title="@string/link_exit"
+            app:actionViewClass="android.widget.TextView" />
+    </group>
+
+</menu>

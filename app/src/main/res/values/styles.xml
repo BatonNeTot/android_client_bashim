@@ -1,0 +1,176 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
+    <style name="GeneralNoTitle" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/onStartColor</item>
+
+
+        <item name="drawerArrowStyle">@style/DrawerArrowLight</item>
+        <item name="toolbarStyle">@style/ToolbarLight</item>
+        <item name="drawerBackground">@color/backgroundLight</item>
+
+        <item name="logoTextIcon">@drawable/bash_round_light</item>
+        <item name="logoBackground">@color/menuIconBackgroundLight</item>
+
+        <item name="android:textColorPrimary">@color/headerTextLight</item>
+
+
+        <item name="colorAccent">@color/textBlack</item>
+        <item name="android:textColorSecondary">@color/textBlack</item>
+        <item name="textColor">@color/textBlack</item>
+        <item name="textInactiveColor">@color/textGreyLight</item>
+
+        <item name="linkColor">@color/linkColorLight</item>
+        <item name="dateColor">@color/dateColorLight</item>
+
+        <item name="quoteColor">@color/textBlack</item>
+        <item name="quoteBackground">@drawable/background_quote_text_light</item>
+
+        <item name="ratingPlus">@drawable/plus_black</item>
+        <item name="ratingMinus">@drawable/minus_black</item>
+        <item name="ratingBayan">@drawable/bayan_black</item>
+
+        <item name="ratingPlusUnable">@drawable/plus_grey_light</item>
+        <item name="ratingMinusUnable">@drawable/minus_grey_light</item>
+        <item name="ratingBayanUnable">@drawable/bayan_grey_light</item>
+
+        <item name="quoteFavorite">@drawable/heart_red</item>
+        <item name="quoteUnfavorite">@drawable/heart_black</item>
+        <item name="quoteShare">@drawable/share_black</item>
+        <item name="quoteCopy">@drawable/copy_black</item>
+
+        <item name="refresherColor">@color/refresherLight</item>
+        <item name="refresherBackgroundColor">@color/refresherBackgroundLight</item>
+
+        <item name="buttonBackground">@drawable/background_button_light</item>
+        <item name="buttonBackgroundColor">@color/backgroundLight</item>
+        <item name="spinnerBackground">@drawable/spinner_light</item>
+        <item name="dialogBackgroundColor">@color/backgroundLight</item>
+    </style>
+
+    <style name="GeneralLight" parent="GeneralNoTitle">
+        <item name="android:windowBackground">@color/backgroundLight</item>
+    </style>
+
+    <style name="GeneralDark" parent="GeneralNoTitle">
+        <item name="drawerArrowStyle">@style/DrawerArrowDark</item>
+        <item name="toolbarStyle">@style/ToolbarDark</item>
+        <item name="drawerBackground">@color/backgroundDark</item>
+
+        <item name="logoTextIcon">@drawable/bash_round_dark</item>
+        <item name="logoBackground">@color/menuIconBackgroundDark</item>
+
+        <item name="android:textColorPrimary">@color/headerTextDark</item>
+
+
+        <item name="colorAccent">@color/textWhite</item>
+        <item name="android:textColorSecondary">@color/textWhite</item>
+        <item name="textColor">@color/textWhite</item>
+        <item name="textInactiveColor">@color/textGreyDark</item>
+
+        <item name="android:windowBackground">@color/backgroundDark</item>
+
+        <item name="linkColor">@color/linkColorDark</item>
+        <item name="dateColor">@color/dateColorDark</item>
+
+        <item name="quoteColor">@color/textWhite</item>
+        <item name="quoteBackground">@drawable/background_quote_text_dark</item>
+
+        <item name="ratingPlus">@drawable/plus_white</item>
+        <item name="ratingMinus">@drawable/minus_white</item>
+        <item name="ratingBayan">@drawable/bayan_white</item>
+
+        <item name="ratingPlusUnable">@drawable/plus_grey_dark</item>
+        <item name="ratingMinusUnable">@drawable/minus_grey_dark</item>
+        <item name="ratingBayanUnable">@drawable/bayan_grey_dark</item>
+
+        <item name="quoteFavorite">@drawable/heart_red</item>
+        <item name="quoteUnfavorite">@drawable/heart_white</item>
+        <item name="quoteShare">@drawable/share_white</item>
+        <item name="quoteCopy">@drawable/copy_white</item>
+
+        <item name="refresherColor">@color/refresherDark</item>
+        <item name="refresherBackgroundColor">@color/refresherBackgroundDark</item>
+
+        <item name="buttonBackground">@drawable/background_button_dark</item>
+        <item name="buttonBackgroundColor">@color/backgroundDark</item>
+        <item name="spinnerBackground">@drawable/spinner_dark</item>
+        <item name="dialogBackgroundColor">@color/backgroundDark</item>
+    </style>
+
+    <style name="GeneralLight.WithStatusBar" parent="GeneralLight"/>
+
+    <style name="GeneralDark.WithStatusBar" parent="GeneralDark"/>
+
+    <style name="DrawerArrowLight" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/headerTextLight</item>
+    </style>
+
+    <style name="DrawerArrowDark" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/headerTextDark</item>
+    </style>
+
+    <style name="ToolbarLight" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/headerLight</item>
+        <item name="titleTextColor">@color/headerTextLight</item>
+    </style>
+
+    <style name="ToolbarDark" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/headerDark</item>
+        <item name="titleTextColor">@color/headerTextDark</item>
+    </style>
+
+    <style name="Dialog" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:windowBackground">?attr/dialogBackgroundColor</item>
+    </style>
+
+    <style name="DrawerLogo" parent="">
+        <item name="android:src">?attr/logoTextIcon</item>
+    </style>
+
+    <style name="Drawer" parent="">
+        <item name="android:background">?attr/drawerBackground</item>
+        <item name="itemTextColor">?attr/textColor</item>
+    </style>
+
+    <style name="Link" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">?attr/linkColor</item>
+    </style>
+
+    <style name="Date" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">?attr/dateColor</item>
+    </style>
+
+    <style name="Quote" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">?attr/quoteColor</item>
+    </style>
+
+    <style name="QuoteBackground" parent="">
+        <item name="android:background">?attr/quoteBackground</item>
+    </style>
+
+    <style name="RegularText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">?attr/textColor</item>
+    </style>
+
+    <style name="ButtonLayout" parent="">
+        <item name="android:background">?attr/quoteBackground</item>"
+    </style>
+
+    <style name="Button" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/download_button</item>
+        <item name="android:background">?attr/buttonBackground</item>"
+    </style>
+
+    <style name="Spinner" parent="">
+        <item name="android:background">?attr/spinnerBackground</item>
+        <item name="android:popupBackground">?attr/buttonBackgroundColor</item>
+    </style>
+
+</resources>

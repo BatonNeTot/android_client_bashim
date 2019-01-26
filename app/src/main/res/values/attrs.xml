@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="drawerBackground" format="reference" />
+
+    <attr name="logoTextIcon" format="reference"/>
+    <attr name="logoBackground" format="color"/>
+
+    <attr name="textColor" format="color" />
+    <attr name="textInactiveColor" format="color" />
+
+    <attr name="linkColor" format="color" />
+    <attr name="dateColor" format="color" />
+
+    <attr name="quoteColor" format="color" />
+    <attr name="quoteBackground" format="reference" />
+
+    <attr name="quoteBackgroundColor" format="color" />
+    <attr name="quoteBackgroundStrokeColor" format="color" />
+
+    <attr name="ratingPlus" format="reference" />
+    <attr name="ratingMinus" format="reference" />
+    <attr name="ratingBayan" format="reference" />
+
+    <attr name="ratingPlusUnable" format="reference" />
+    <attr name="ratingMinusUnable" format="reference" />
+    <attr name="ratingBayanUnable" format="reference" />
+
+    <attr name="quoteFavorite" format="reference" />
+    <attr name="quoteUnfavorite" format="reference" />
+    <attr name="quoteShare" format="reference" />
+    <attr name="quoteCopy" format="reference" />
+
+    <attr name="refresherColor" format="color" />
+    <attr name="refresherBackgroundColor" format="color" />
+
+    <attr name="buttonBackground" format="reference" />
+    <attr name="buttonBackgroundColor" format="color" />
+    <attr name="spinnerBackground" format="reference" />
+    <attr name="dialogBackgroundColor" format="color" />
+
+</resources>

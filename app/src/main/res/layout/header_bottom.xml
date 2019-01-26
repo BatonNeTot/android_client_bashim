@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/quoteRatingPlus"
+        android:layout_width="@dimen/quote_rate_button_size"
+        android:layout_height="@dimen/quote_rate_button_size"
+
+        android:layout_marginStart="@dimen/quote_margin"
+        android:layout_marginLeft="@dimen/quote_margin"
+
+        android:src="@drawable/plus_black"
+        android:contentDescription="@string/quote_rating_plus"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/quoteRatingValue"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/quote_rate_button_height"
+
+        android:layout_marginStart="@dimen/quote_rate_button_margin"
+        android:layout_marginLeft="@dimen/quote_rate_button_margin"
+
+        style="@style/RegularText"
+
+        android:text="111"
+        android:textSize="@dimen/quote_rate_text_size"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/quoteRatingMinus"
+        android:layout_width="@dimen/quote_rate_button_size"
+        android:layout_height="@dimen/quote_rate_button_size"
+
+        android:layout_marginStart="@dimen/quote_rate_button_margin"
+        android:layout_marginLeft="@dimen/quote_rate_button_margin"
+
+        android:src="@drawable/minus_black"
+        android:contentDescription="@string/quote_rating_minus"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/quoteRatingBayan"
+        android:layout_width="@dimen/quote_rate_button_wsize"
+        android:layout_height="@dimen/quote_rate_button_size"
+
+        android:layout_marginStart="@dimen/quote_rate_button_margin"
+        android:layout_marginLeft="@dimen/quote_rate_button_margin"
+
+        android:layout_marginEnd="@dimen/quote_rate_button_margin"
+        android:layout_marginRight="@dimen/quote_rate_button_margin"
+
+        android:src="@drawable/bayan_black"
+        android:contentDescription="@string/quote_rating_bayan"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/quoteFavorite"
+        android:layout_width="@dimen/quote_rate_button_size"
+        android:layout_height="@dimen/quote_rate_button_size"
+
+        android:layout_marginEnd="@dimen/quote_rate_button_margin"
+        android:layout_marginRight="@dimen/quote_rate_button_margin"
+
+        android:src="@drawable/heart_red"
+        android:contentDescription="@string/quote_unfavorite"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/quoteShare"
+        android:layout_width="@dimen/quote_rate_button_size"
+        android:layout_height="@dimen/quote_rate_button_size"
+
+        android:layout_marginEnd="@dimen/quote_rate_button_margin"
+        android:layout_marginRight="@dimen/quote_rate_button_margin"
+
+        android:src="@drawable/share_black"
+        android:contentDescription="@string/quote_share"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/quoteCopy"
+        android:layout_width="@dimen/quote_rate_button_size"
+        android:layout_height="@dimen/quote_rate_button_size"
+
+        android:layout_marginEnd="@dimen/quote_margin"
+        android:layout_marginRight="@dimen/quote_margin"
+
+        android:src="@drawable/copy_black"
+        android:contentDescription="@string/quote_copy"
+        android:gravity="center" />
+
+</LinearLayout>

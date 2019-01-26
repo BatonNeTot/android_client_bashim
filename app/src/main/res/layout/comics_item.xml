@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/loading_margin"
+            android:layout_gravity="center"/>
+
+        <com.notjuststudio.bashim.custom.ZoomImageView
+            android:id="@+id/comics"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/comics"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/backlink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingBottom="@dimen/quote_text_padding"
+
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start|left">
+
+                <TextView
+                    android:id="@+id/beforeAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="@dimen/quote_text_padding"
+                    android:layout_marginLeft="@dimen/quote_text_padding"
+
+                    android:layout_gravity="center_vertical"
+
+                    style="@style/RegularText"
+                    android:text="@string/comics_bottom_author"
+                    android:textSize="@dimen/quote_body_text_size"/>
+
+                <TextView
+                    android:id="@+id/author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="@dimen/quote_text_padding"
+                    android:layout_marginLeft="@dimen/quote_text_padding"
+
+                    style="@style/Link"
+                    android:textSize="@dimen/quote_body_text_size"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quoteContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start|left">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="@dimen/quote_text_padding"
+                    android:layout_marginLeft="@dimen/quote_text_padding"
+
+                    style="@style/RegularText"
+                    android:text="@string/comics_bottom_before_quote"
+                    android:textSize="@dimen/quote_body_text_size"/>
+
+                <TextView
+                    android:id="@+id/quoteId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="@dimen/quote_text_padding"
+                    android:layout_marginLeft="@dimen/quote_text_padding"
+
+                    style="@style/Link"
+                    android:textSize="@dimen/quote_body_text_size"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/comicsShare"
+            android:layout_width="@dimen/quote_rate_button_size"
+            android:layout_height="@dimen/quote_rate_button_size"
+
+            android:layout_marginEnd="@dimen/quote_rate_button_margin"
+            android:layout_marginRight="@dimen/quote_rate_button_margin"
+
+            android:layout_marginTop="@dimen/quote_rate_button_margin_v"
+            android:layout_marginBottom="@dimen/quote_rate_button_margin_v"
+
+            android:src="@drawable/share_black"
+            android:contentDescription="@string/quote_share"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</LinearLayout>

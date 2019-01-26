@@ -1,0 +1,185 @@
+<resources>
+    <string name="app_name">Bash.im</string>
+    <string name="full_app_name">Bash.im Android клиент</string>
+
+    <string name="navigation_drawer_open">Открыть панель навигации</string>
+    <string name="navigation_drawer_close">Закрыть панель навигации</string>
+
+    <string name="description_recycler">Цитаты</string>
+    <string name="description_recycler_header">Миниатюры комиксов</string>
+
+    <string name="info_text_share">Поделиться цитатой</string>
+    <string name="info_comics_share">Поделиться комиксом</string>
+    <string name="quotes_load_error">Ошибка загрузки</string>
+    <string name="quotes_offline_error">Нет загруженных цитат</string>
+    <string name="quotes_favorite_error">Нет избранных цитат</string>
+
+    <string name="quote_top_form">#%1$d</string>
+    <string name="quote_id_form">#%1$s</string>
+
+    <string name="quote_favorite">Добавить в избранное</string>
+    <string name="quote_unfavorite">Удалить из избранного</string>
+    <string name="quote_share">Поделиться</string>
+    <string name="quote_copy">Копировать</string>
+    <string name="quote_rating_plus">Пометить как понравившееся</string>
+    <string name="quote_rating_minus">Пометить как непонравившееся</string>
+    <string name="quote_rating_bayan">Пометить как баян</string>
+    <string name="quote_rating_unknown_value">\?\?\?</string>
+    <string name="quote_rating_unknown_plus">:-)</string>
+    <string name="quote_rating_unknown_minus">:-(</string>
+
+    <string-array name="quote_rating_smiley_left">
+        <item>(･_･ )</item>
+        <item>(¬_¬ )</item>
+        <item>(ಠ_ಠ )</item>
+        <item>(ಠ＿ಠ )</item>
+        <item>(ಠ益ಠ )</item>
+        <item>(&gt;＿&lt; )</item>
+        <item>(=＿= )</item>
+    </string-array>
+
+    <string-array name="quote_rating_smiley_right">
+        <item>( ･_･)</item>
+        <item>( ¬_¬)</item>
+        <item>( ಠ_ಠ)</item>
+        <item>( ಠ＿ಠ)</item>
+        <item>( ಠ益ಠ)</item>
+        <item>( &gt;＿&lt;)</item>
+        <item>( =＿=)</item>
+    </string-array>
+
+    <string name="quote_rating_success">Ваш голос учтен</string>
+    <string name="quote_rating_error">Произошла ошибка при голосовании</string>
+
+    <string name="quote_copy_success">Текст скопирован</string>
+
+    <string name="date_picker_title">Выберите дату</string>
+    <string name="date_picker_ok">OK</string>
+    <string name="date_picker_cancel">Назад</string>
+
+    <string name="date_today">сегодня</string>
+
+    <string-array name="date_month">
+        <item>январь</item>
+        <item>февраль</item>
+
+        <item>март</item>
+        <item>апрель</item>
+        <item>май</item>
+
+        <item>июнь</item>
+        <item>июль</item>
+        <item>август</item>
+
+        <item>сентябрь</item>
+        <item>октябрь</item>
+        <item>ноябрь</item>
+
+        <item>декабрь</item>
+    </string-array>
+    <string-array name="date_month_short">
+        <item>янв</item>
+        <item>фев</item>
+
+        <item>мар</item>
+        <item>апр</item>
+        <item>май</item>
+
+        <item>июн</item>
+        <item>июл</item>
+        <item>авг</item>
+
+        <item>сен</item>
+        <item>окт</item>
+        <item>ноя</item>
+
+        <item>дек</item>
+    </string-array>
+
+    <string name="link_new">&gt; \tНовые</string>
+
+    <string name="link_random_title_down">v \tСлучайные</string>
+    <string name="link_random_title_up">ʌ \tСлучайные</string>
+    <string name="link_random_online">\t\t&gt; \tОнлайн</string>
+    <string name="link_random_offline">\t\t&gt; \tОффлайн</string>
+
+    <string name="link_best_title_down">v \tЛучшие</string>
+    <string name="link_best_title_up">ʌ \tЛучшие</string>
+    <string name="link_best_today">\t\t&gt; \tЗа сегодня</string>
+    <string name="link_best_month">\t\t&gt; \tЗа месяц</string>
+    <string name="link_best_year">\t\t&gt; \tЗа год</string>
+    <string name="link_best_all">\t\t&gt; \tЗа все время</string>
+
+    <string name="link_abyss_title_down">v \tБездна</string>
+    <string name="link_abyss_title_up">ʌ \tБездна</string>
+    <string name="link_abyss_new">\t\t&gt; \tНовое</string>
+    <string name="link_abyss_top">\t\t&gt; \tТоп</string>
+    <string name="link_abyss_best">\t\t&gt; \tЛучшее</string>
+
+    <string name="link_favorite">&gt; \tИзбранные</string>
+    <string name="link_comics">&gt; \tКомиксы</string>
+
+    <string name="link_settings">&gt; \tНастройки</string>
+    <string name="link_exit">&gt; \tВыйти</string>
+
+    <string name="settings_title">Настройки</string>
+
+    <string name="settings_dark_theme">Темная тема</string>
+    <string name="preferred_link">Предпочитаемая тематика</string>
+
+    <string-array name="preferred_links">
+        <item>Новые</item>
+
+        <item>Случайные онлайн</item>
+        <item>Случайные оффлайн</item>
+
+        <item>Лучшие за сегодня</item>
+        <item>Лучшие за месяц</item>
+        <item>Лучшие за год</item>
+        <item>Лучшие за все время</item>
+
+        <item>Бездна</item>
+        <item>Топ Бездны</item>
+        <item>Лучшее Бездны</item>
+
+        <item>Избранные</item>
+        <item>Комиксы</item>
+    </string-array>
+
+    <string name="link_new_page">Новые - Страница %1$d</string>
+    <string name="link_best_all_page">Лучшие - Страница %1$d</string>
+
+    <string name="random_title">Загружено случайных цитат: %1$d</string>
+    <string name="download_random">Загрузить случайные цитаты</string>
+    <string name="clear_random">Очистить загруженные цитаты</string>
+    <string name="clear_random_text">Вы уверены?</string>
+    <string name="clear_random_cancel">Отмена</string>
+    <string name="clear_random_confirm">Очистить</string>
+
+    <string name="download_title">Загрузка цитат</string>
+    <string name="download_text">Загружено %1$d из %2$d</string>
+    <string name="download_complete">Загрузка завершена</string>
+    <string name="download_error">Ошибка загрузки</string>
+    <string name="download_count">Введите количество цитат</string>
+    <string name="download_fat">Вы скачали все цитаты</string>
+
+    <string name="download_channel_name">Загрузочный канал</string>
+    <string name="download_channel_description">Канал для загрузки цитат</string>
+
+    <string name="favorite_title">Избранных цитат: %1$d</string>
+    <string name="clear_favorite">Удалить избранные цитаты</string>
+    <string name="clear_favorite_text">Вы уверены?</string>
+    <string name="clear_favorite_cancel">Отмена</string>
+    <string name="clear_favorite_confirm">Удалить</string>
+
+    <string name="donate_title">Раздел \"Бедного Разработчика\"</string>
+    <string name="button_donate">Пожертвовать на еду</string>
+
+    <string name="comics_header">Миниатюра комикса, открыть комикс</string>
+    <string name="comics">Комикс</string>
+    <string name="comics_need_to_update">Обновите страницу</string>
+    <string name="comics_bottom_author">Нарисовал(а) </string>
+    <string name="comics_bottom_before_quote"> по мотивам </string>
+    <string name="comics_bottom_quote">цитаты #%1$s</string>
+
+</resources>

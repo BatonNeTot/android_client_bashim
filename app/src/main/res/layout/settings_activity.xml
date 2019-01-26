@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:padding="@dimen/settings_divider">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+
+                    style="@style/RegularText"
+
+                    android:text="@string/settings_dark_theme"
+                    android:textSize="@dimen/settings_text_size"/>
+
+                <CheckBox
+                    android:id="@+id/isDarkTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                style="@style/RegularText"
+
+                android:text="@string/preferred_link"
+                android:textSize="@dimen/settings_text_size"
+
+                android:layout_marginTop="@dimen/settings_divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                android:padding="@dimen/settings_margin"
+
+                android:layout_marginTop="@dimen/settings_divider"
+
+                style="@style/ButtonLayout">
+
+                <Spinner
+                    android:id="@+id/spinnerFavorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    style="@style/Spinner"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/randomTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                style="@style/RegularText"
+
+                android:text="@string/random_title"
+                android:textSize="@dimen/settings_text_size"
+
+                android:layout_marginTop="@dimen/settings_divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                android:padding="@dimen/settings_margin"
+
+                android:layout_marginTop="@dimen/settings_divider"
+
+                style="@style/ButtonLayout">
+
+                <TextView
+                    android:id="@+id/downloadRandom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="@dimen/settings_divider"
+
+                    style="@style/Button"
+
+                    android:text="@string/download_random"
+                    android:textSize="@dimen/settings_text_size"
+                    android:gravity="start"/>
+
+                <TextView
+                    android:id="@+id/clearRandom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="@dimen/settings_divider"
+
+                    android:layout_marginTop="@dimen/settings_divider"
+
+                    style="@style/Button"
+
+                    android:text="@string/clear_random"
+                    android:textSize="@dimen/settings_text_size"
+                    android:gravity="start"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/favoriteTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                style="@style/RegularText"
+
+                android:text="@string/favorite_title"
+                android:textSize="@dimen/settings_text_size"
+
+                android:layout_marginTop="@dimen/settings_divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                android:padding="@dimen/settings_margin"
+
+                android:layout_marginTop="@dimen/settings_divider"
+
+                style="@style/ButtonLayout">
+
+                <TextView
+                    android:id="@+id/clearFavorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="@dimen/settings_divider"
+
+                    style="@style/Button"
+
+                    android:text="@string/clear_favorite"
+                    android:textSize="@dimen/settings_text_size"
+                    android:gravity="start"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                style="@style/RegularText"
+
+                android:text="@string/donate_title"
+                android:textSize="@dimen/settings_text_size"
+
+                android:layout_marginTop="@dimen/settings_divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                android:padding="@dimen/settings_margin"
+
+                android:layout_marginTop="@dimen/settings_divider"
+
+                style="@style/ButtonLayout">
+
+                <TextView
+                    android:id="@+id/donateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="@dimen/settings_divider"
+
+                    style="@style/Button"
+
+                    android:text="@string/button_donate"
+                    android:textSize="@dimen/settings_text_size"
+                    android:gravity="start"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
