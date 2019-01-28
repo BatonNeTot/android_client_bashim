@@ -41,7 +41,9 @@ class ComicsActivity : BaseActivity() {
         intent.putExtra(COMICS_ID, index)
         setResult(Activity.RESULT_OK, intent)
 
-        quoteHelper.restoreQuoteDialog()
+        addSheludePost {
+            quoteHelper.restoreQuoteDialog(this)
+        }
 
         comicsPager.adapter = ComicsBodyPagerAdapter(this)
         comicsPager.setCurrentItem(index, false)

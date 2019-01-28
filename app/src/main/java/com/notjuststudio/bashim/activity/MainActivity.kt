@@ -126,7 +126,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (!resourceHelper.bool(R.bool.is_drawer_fixed))
             drawerLayout.closeDrawer(GravityCompat.START)
 
-        quoteHelper.restoreQuoteDialog()
+        addSheludePost {
+            quoteHelper.restoreQuoteDialog(this)
+        }
 
         //TODO доделать, связаться с bash.im
         var link = sharedPrefHelper.loadFavorite()
@@ -147,7 +149,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     when(pathSegments[0]) {
                         "quote" -> {
                             if (pathSegments.size >= 2) {
-                                quoteHelper.goToQuote(pathSegments[1])
+                                addSheludePost {
+                                    quoteHelper.goToQuote(pathSegments[1])
+                                }
                             } else {
                                 quoteHelper.discardCache()
                                 link = Link.NEW

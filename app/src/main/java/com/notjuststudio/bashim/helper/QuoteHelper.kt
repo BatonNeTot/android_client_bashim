@@ -1,9 +1,12 @@
 package com.notjuststudio.bashim.helper
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.ImageView
@@ -36,9 +39,10 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
     private var lastDialog: AlertDialog? = null
 
     fun dateDialog(lastDay: Calendar, currentDate: Calendar, firstDay: Calendar, dataType: Int, onTrue: (Int) -> Unit) {
+        @SuppressLint("InflateParams")
         val root = inflaterHelper.inflate(R.layout.date_dialog_layout, null)
 
-        val lastDialog = AlertDialog.Builder(activityProvider.get(), R.style.Dialog)
+        lastDialog = AlertDialog.Builder(activityProvider.get(), R.style.Dialog)
                 .setView(root)
                 .setCancelable(true)
                 .setPositiveButton(R.string.date_picker_ok){ dialog, _->
@@ -185,29 +189,40 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
     }
 
     private var lastDialogId: String? = null
+    private var lastActivityName: String = ""
 
-    fun restoreQuoteDialog() {
-        if (lastDialogId != null) {
+    fun restoreQuoteDialog(activity: Activity) {
+        if (lastActivityName == activity.localClassName && lastDialogId != null) {
             goToQuote(lastDialogId!!)
+        } else {
+            lastDialogId = null
+            lastActivityName = ""
         }
     }
 
     fun goToQuote(id: String) {
         if (lastDialog != null) {
-            lastDialog?.dismiss()
+            try {
+                lastDialog?.dismiss()
+            } catch (e: Exception) {}
         }
 
         val activity = activityProvider.get()
 
         lastDialogId = id
+        lastActivityName = activity?.localClassName ?: ""
+        @SuppressLint("InflateParams")
         val root = inflaterHelper.inflate(R.layout.quote_layout, null)
+
+        Log.i("QuoteDialog", "Activity = $activity, localClassName = ${activity?.localClassName}")
 
         lastDialog = AlertDialog.Builder(activity, R.style.Dialog)
                 .setView(root)
                 .setCancelable(true)
                 .setOnCancelListener {
-                    lastDialogId = null
                     lastDialog = null
+                    lastDialogId = null
+                    lastActivityName = ""
                 }
                 .create()
 
@@ -219,6 +234,8 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             App.error(R.string.quotes_load_error)
             lastDialog?.dismiss()
             lastDialog = null
+            lastDialogId = null
+            lastActivityName = ""
         })
 
         lastDialog?.show()
