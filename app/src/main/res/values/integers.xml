@@ -9,4 +9,8 @@
         <item>6</item>
         <item>7</item>
     </integer-array>
+
+    <integer name="quote_text_init_size">15</integer>
+    <integer name="quote_text_min_size">15</integer>
+    <integer name="quote_text_max_size">25</integer>
 </resources>

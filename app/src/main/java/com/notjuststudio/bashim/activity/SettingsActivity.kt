@@ -1,5 +1,6 @@
 package com.notjuststudio.bashim.activity
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -9,8 +10,9 @@ import kotlinx.android.synthetic.main.settings_activity.*
 import android.content.DialogInterface
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
+import android.widget.SeekBar
 import com.notjuststudio.bashim.*
 import com.notjuststudio.bashim.common.Link
 import com.notjuststudio.bashim.custom.TriggerOnClickListener
@@ -30,7 +32,10 @@ class SettingsActivity : BaseActivity() {
 
         const val LOAD_COUNT = 1000
 
+        const val MAX_PROGRESS = 1000
+
         const val LAST_THEME_WAS_DARK = "lastThemeWasDark"
+        const val LAST_TEXT_SIZE = "lastTextSize"
         const val SCROLL_POSITION = "scrollPosition"
 
     }
@@ -53,8 +58,10 @@ class SettingsActivity : BaseActivity() {
     @Inject
     lateinit var quoteHelper: QuoteHelper
 
-    var lastThemeWasDark: Boolean = false
+    private var lastThemeWasDark: Boolean = false
+    private var lastTextSize: Float = 15f
 
+    @SuppressLint("PrivateResource")
     override fun onCreate(savedInstanceState: Bundle?) {
         app.component.inject(this)
 
@@ -65,25 +72,48 @@ class SettingsActivity : BaseActivity() {
 
         val currentThemeIsDark = sharedPrefHelper.isDarkTheme()
         lastThemeWasDark = intent?.extras?.getBoolean(LAST_THEME_WAS_DARK, currentThemeIsDark) ?: currentThemeIsDark
-        quoteHelper.saveUpdateTheme(lastThemeWasDark != currentThemeIsDark)
 
         addSheludePost{
             scroll.scrollTo(0, intent?.extras?.getInt(SCROLL_POSITION, 0) ?: 0)
         }
 
-        isDarkTheme.isChecked = currentThemeIsDark
-        isDarkTheme.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(view: CompoundButton, flag: Boolean) {
-                sharedPrefHelper.saveIsDarkTheme(flag)
-                intent
-                        .putExtra(LAST_THEME_WAS_DARK, lastThemeWasDark)
-                        .putExtra(SCROLL_POSITION, scroll.scrollY)
-                finish()
-                startActivity(intent)
-                overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out)
+        val textSizeInit = sharedPrefHelper.getQuoteTextSize()
+        lastTextSize = intent?.extras?.getFloat(LAST_TEXT_SIZE, textSizeInit) ?: textSizeInit
+        val textSizeMin = resourceHelper.int(R.integer.quote_text_min_size)
+        val textSizeMax = resourceHelper.int(R.integer.quote_text_max_size)
+
+        quoteHelper.saveUpdateTheme(lastTextSize != textSizeInit || lastThemeWasDark != currentThemeIsDark)
+
+        textSizeBarExample.textSize = textSizeInit
+        textSizeBar.max = MAX_PROGRESS
+        textSizeBar.progress = (MAX_PROGRESS * (textSizeInit - textSizeMin) / (textSizeMax - textSizeMin)).toInt()
+        textSizeBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                val textSize = (textSizeMax - textSizeMin).toFloat() * progress / MAX_PROGRESS + textSizeMin
+                sharedPrefHelper.setQuoteTextSize(textSize)
+                textSizeBarExample.textSize = textSize
+
+                quoteHelper.saveUpdateTheme(lastTextSize != textSize || lastThemeWasDark != currentThemeIsDark)
             }
 
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+
         })
+
+        isDarkTheme.isChecked = currentThemeIsDark
+        isDarkTheme.setOnCheckedChangeListener { _, flag ->
+            sharedPrefHelper.setIsDarkTheme(flag)
+            intent
+                    .putExtra(LAST_THEME_WAS_DARK, lastThemeWasDark)
+                    .putExtra(LAST_TEXT_SIZE, textSizeBarExample.textSize)
+                    .putExtra(SCROLL_POSITION, scroll.scrollY)
+            finish()
+            startActivity(intent)
+            overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out)
+        }
 
         spinnerFavorite.adapter = ArrayAdapter<String>(this, R.layout.spinner_item, resourceHelper.stringArray(R.array.preferred_links))
         spinnerFavorite.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -97,9 +127,10 @@ class SettingsActivity : BaseActivity() {
 
         spinnerFavorite.setSelection(sharedPrefHelper.loadFavorite().id)
 
-        downloadRandom.setOnClickListener{
+        downloadRandom.setOnClickListener{ it ->
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
 
+            @SuppressLint("InflateParams")
             val root = inflaterHelper.inflate(R.layout.loading_layout, null)
 
             val dialog = AlertDialog.Builder(this, R.style.Dialog)
@@ -109,10 +140,10 @@ class SettingsActivity : BaseActivity() {
 
             dialog.show()
 
-            CountQuoteLoader.loadQuote(onLoaded = {
+            CountQuoteLoader.loadQuote(onLoaded = { count ->
                 dialog.dismiss()
                 val offlineQuotes = dbHelper.countQuotes()
-                val available = it - offlineQuotes
+                val available = count - offlineQuotes
 
                 if (available <= 0) {
                     App.info(R.string.download_fat)
@@ -120,6 +151,7 @@ class SettingsActivity : BaseActivity() {
                 }
 
                 @Suppress("NAME_SHADOWING")
+                @SuppressLint("InflateParams")
                 val root = inflaterHelper.inflate(R.layout.offline_dialog_layout, null)
 
                 @Suppress("NAME_SHADOWING")
@@ -141,7 +173,7 @@ class SettingsActivity : BaseActivity() {
                                     enableButtons()
                                 }
 
-                                quoteSaverController.setOnUpdateListener {
+                                quoteSaverController.setOnUpdateListener { _ ->
                                     randomTitle.text = getString(R.string.random_title, dbHelper.countQuotes())
                                 }
                             }

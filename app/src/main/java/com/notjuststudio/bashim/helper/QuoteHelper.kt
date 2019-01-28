@@ -29,7 +29,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
                   private val interactionHelper: InteractionHelper,
                   private val dbHelper: DataBaseHelper,
                   private val activityProvider: ActivityProvider,
-                  private val rateHelper: RateHelper) {private val months: Array<String> = resourceHelper.stringArray(R.array.date_month).asList().toTypedArray()
+                  private val sharedPrefHelper: SharedPrefHelper) {private val months: Array<String> = resourceHelper.stringArray(R.array.date_month).asList().toTypedArray()
 
     companion object {
         const val FIRST_YEAR = 2004
@@ -348,6 +348,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             App.info(R.string.quote_copy_success)
         }
 
+        root.quoteText.textSize = sharedPrefHelper.getQuoteTextSize()
         if (type.canLink) {
             root.quoteText.setOnClickListener {
                 it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)

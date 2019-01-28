@@ -11,7 +11,8 @@ class HelperModule {
 
     @Provides
     @Singleton
-    fun provideSharedPrefHelper(context: Context) = SharedPrefHelper(context)
+    fun provideSharedPrefHelper(context: Context,
+                                resource: ResourceHelper) = SharedPrefHelper(context, resource)
 
     @Provides
     @Singleton
@@ -44,7 +45,7 @@ class HelperModule {
                            interaction: InteractionHelper,
                            dataBase: DataBaseHelper,
                            activityProvider: ActivityProvider,
-                           rateHelper: RateHelper) = QuoteHelper(inflater, resource, interaction, dataBase, activityProvider, rateHelper)
+                           sharedPref: SharedPrefHelper) = QuoteHelper(inflater, resource, interaction, dataBase, activityProvider, sharedPref)
 
     @Provides
     @Singleton

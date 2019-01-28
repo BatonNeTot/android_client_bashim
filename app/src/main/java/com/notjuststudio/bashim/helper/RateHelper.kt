@@ -34,7 +34,7 @@ class RateHelper {
                 private var currentUrl: String? = null
 
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    Log.i("WebView", "Finished $url")
+//                    Log.i("WebView", "Finished $url")
                     if (wasError) {
                         wasError = false
                     } else {
@@ -48,38 +48,38 @@ class RateHelper {
 
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                     currentUrl = url
-                    Log.i("WebView", "Started $url")
+//                    Log.i("WebView", "Started $url")
                 }
 
                 override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
-                    Log.i("WebView", "Error: ${if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) error?.description else error.toString()}; " +
-                            "Request: ${if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) request?.url else request.toString()}")
+//                    Log.i("WebView", "Error: ${if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) error?.description else error.toString()}; " +
+//                            "Request: ${if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) request?.url else request.toString()}")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                         if (request?.url?.toString() == currentUrl)
                             wasError = true
                 }
 
                 override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
-                    Log.i("WebView", "ErrorResponse: $errorResponse; Request: $request")
+//                    Log.i("WebView", "ErrorResponse: $errorResponse; Request: $request")
                 }
 
                 override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
-                    Log.i("WebView", "ErrorSsl: $error; Handler: $handler")
+//                    Log.i("WebView", "ErrorSsl: $error; Handler: $handler")
                 }
             }
             browser?.webChromeClient = object : WebChromeClient() {
                 override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
-                    Log.i("JS", "Alert")
+//                    Log.i("JS", "Alert")
                     return true
                 }
 
                 override fun onJsConfirm(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
-                    Log.i("JS", "Confirm")
+//                    Log.i("JS", "Confirm")
                     return true
                 }
 
                 override fun onJsPrompt(view: WebView?, url: String?, message: String?, defaultValue: String?, result: JsPromptResult?): Boolean {
-                    Log.i("JS", "Prompt")
+//                    Log.i("JS", "Prompt")
                     return true
                 }
             }
@@ -99,7 +99,6 @@ class RateHelper {
             } else {
                 browser?.loadUrl("javascript:$script")
             }
-            Log.i("JS", "Executed")
         }
     }
 

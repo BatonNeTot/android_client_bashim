@@ -6,13 +6,15 @@ import android.support.annotation.StyleRes
 import com.notjuststudio.bashim.R
 import com.notjuststudio.bashim.common.Link
 
-class SharedPrefHelper(private val context: Context) {
+class SharedPrefHelper(context: Context,
+                       private val resourceHelper: ResourceHelper) {
 
     companion object {
         const val SHARED_PREF_NAME = "shared"
 
         const val FAVORITE = "favorite"
         const val IS_DARK_THEME = "isThemeDark"
+        const val QUOTE_TEXT_SIZE = "quoteTextSize"
     }
 
 
@@ -40,9 +42,19 @@ class SharedPrefHelper(private val context: Context) {
         return sharedPref.getBoolean(IS_DARK_THEME, false)
     }
 
-    fun saveIsDarkTheme(isDark: Boolean) {
+    fun setIsDarkTheme(isDark: Boolean) {
         val edit = sharedPref.edit()
         edit.putBoolean(IS_DARK_THEME, isDark)
+        edit.apply()
+    }
+
+    fun getQuoteTextSize() : Float {
+        return sharedPref.getFloat(QUOTE_TEXT_SIZE, resourceHelper.int(R.integer.quote_text_init_size).toFloat())
+    }
+
+    fun setQuoteTextSize(size: Float) {
+        val edit = sharedPref.edit()
+        edit.putFloat(QUOTE_TEXT_SIZE, size)
         edit.apply()
     }
 

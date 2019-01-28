@@ -126,6 +126,8 @@
 
     <string name="settings_title">Настройки</string>
 
+    <string name="settings_text_size">Размер текста: </string>
+    <string name="settings_text_size_example">Пример</string>
     <string name="settings_dark_theme">Темная тема</string>
     <string name="preferred_link">Предпочитаемая тематика</string>
 
