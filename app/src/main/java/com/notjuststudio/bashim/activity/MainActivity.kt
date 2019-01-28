@@ -20,7 +20,6 @@ import android.support.v7.widget.RecyclerView
 import com.notjuststudio.bashim.helper.QuoteHelper
 import com.notjuststudio.bashim.proto.BaseActivity
 import android.os.Build
-import android.text.Html
 import com.notjuststudio.bashim.helper.QuoteHelper.Companion.FIRST_MONTH
 import com.notjuststudio.bashim.helper.QuoteHelper.Companion.FIRST_YEAR
 import com.notjuststudio.bashim.loader.FavoriteQuotesLoader
@@ -28,8 +27,6 @@ import com.notjuststudio.bashim.loader.RegularQuoteLoader
 import java.lang.Math.max
 import java.lang.Math.min
 import java.net.URLDecoder
-import java.net.URLEncoder
-import java.nio.charset.Charset
 import java.util.*
 
 
@@ -61,7 +58,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.activity_main_toolbar, menu)
+        menuInflater.inflate(if (sharedPrefHelper.isDarkTheme())
+            R.menu.activity_main_toolbar_dark
+        else
+            R.menu.activity_main_toolbar_light, menu)
         return true
     }
 
