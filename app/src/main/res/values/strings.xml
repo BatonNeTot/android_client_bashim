@@ -20,8 +20,8 @@
     <string name="quote_favorite">Добавить в избранное</string>
     <string name="quote_unfavorite">Удалить из избранного</string>
     <string name="quote_share">Поделиться</string>
-    <string name="quote_share_form">Bash.im | Цитата из Бездны\n\n%1$s\n\nhttps://play.google.com/store/apps/details?id=com.notjuststudio.bashim</string>
-    <string name="quote_share_form_with_id">Bash.im | Цитата #%1$s\n\n%2$s\n\nhttps://play.google.com/store/apps/details?id=com.notjuststudio.bashim</string>
+    <string name="quote_share_abyss">из Бездны</string>
+    <string name="quote_share_form">Bash.im | Цитата %1$s\n\n%2$s\n\nhttps://play.google.com/store/apps/details?id=com.notjuststudio.bashim</string>
     <string name="quote_copy">Копировать</string>
     <string name="quote_rating_plus">Пометить как понравившееся</string>
     <string name="quote_rating_minus">Пометить как непонравившееся</string>

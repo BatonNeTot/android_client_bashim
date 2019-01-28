@@ -331,11 +331,12 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         root.quoteShare.setOnClickListener{
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             if (activity != null) {
-                val shareText = if (type.canLink) {
-                    resourceHelper.string(R.string.quote_share_form_with_id, quote.id, quote.text)
-                } else {
-                    resourceHelper.string(R.string.quote_share_form, quote.text)
-                }
+                val shareText = resourceHelper.string(R.string.quote_share_form,
+                        if (type.canLink) {
+                            resourceHelper.string(R.string.quote_id_form, quote.id)
+                        } else {
+                            resourceHelper.string(R.string.quote_share_abyss)
+                        }, quote.text)
                 interactionHelper.share(activity, shareText)
             }
         }
