@@ -13,6 +13,7 @@
     <string name="quotes_load_error">Ошибка загрузки</string>
     <string name="quotes_offline_error">Нет загруженных цитат</string>
     <string name="quotes_favorite_error">Нет избранных цитат</string>
+    <string name="quotes_search_nothing">Ничего не найдено</string>
 
     <string name="quote_top_form">#%1$d</string>
     <string name="quote_id_form">#%1$s</string>
@@ -155,6 +156,12 @@
 
     <string name="link_new_page">Новые - Страница %1$d</string>
     <string name="link_best_all_page">Лучшие - Страница %1$d</string>
+
+    <string name="link_search">\"%1$s\"</string>
+    <string name="link_search_hint">Искать цитаты</string>
+    <string name="link_search_title">Введите номер цитаты или ключевые слова</string>
+    <string name="link_search_ok">OK</string>
+    <string name="link_search_cancel">Назад</string>
 
     <string name="random_title">Загружено случайных цитат: %1$d</string>
     <string name="download_random">Загрузить случайные цитаты</string>

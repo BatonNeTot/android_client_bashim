@@ -57,7 +57,8 @@ enum class Link(val id: Int, val type: QuoteType = QuoteType.REGULAR, val title:
     ABYSS_BEST(9, type = QuoteType.ABYSS_BEST, title = TitleType.ABYSS_BEST, loadOnScroll = false),
 
     FAVORITE(10),
-    COMICS(11, type = QuoteType.COMICS, title = TitleType.COMICS, loadOnScroll = false);
+    COMICS(11, type = QuoteType.COMICS, title = TitleType.COMICS, loadOnScroll = false),
+    SEARCH(12, loadOnScroll = false);
 
     companion object {
         private val map = Link.values().associateBy(Link::id)
@@ -103,6 +104,12 @@ data class ComicsYear(
             return true
 
         return this.name == other.name
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + months.hashCode()
+        return result
     }
 
 }

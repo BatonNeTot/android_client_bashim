@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 class QuotePagerAdapter(link: Link,
                         private val pager: ViewPager,
-                        private val tab: PagerDateStrip) : LinkPagerAdapter(link) {
+                        tab: PagerDateStrip) : LinkPagerAdapter(link) {
 
     companion object {
         private const val LOAD_SCROLL_DISTANCE = 200
@@ -99,6 +99,9 @@ class QuotePagerAdapter(link: Link,
                     App.error(R.string.quotes_load_error)
                 }, onNothingToLoad = {
                     when (link) {
+                        Link.SEARCH -> {
+                            App.error(R.string.quotes_search_nothing)
+                        }
                         Link.FAVORITE -> {
                             App.error(R.string.quotes_favorite_error)
                         }

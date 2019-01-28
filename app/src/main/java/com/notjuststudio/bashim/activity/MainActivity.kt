@@ -20,12 +20,16 @@ import android.support.v7.widget.RecyclerView
 import com.notjuststudio.bashim.helper.QuoteHelper
 import com.notjuststudio.bashim.proto.BaseActivity
 import android.os.Build
+import android.text.Html
 import com.notjuststudio.bashim.helper.QuoteHelper.Companion.FIRST_MONTH
 import com.notjuststudio.bashim.helper.QuoteHelper.Companion.FIRST_YEAR
 import com.notjuststudio.bashim.loader.FavoriteQuotesLoader
 import com.notjuststudio.bashim.loader.RegularQuoteLoader
 import java.lang.Math.max
 import java.lang.Math.min
+import java.net.URLDecoder
+import java.net.URLEncoder
+import java.nio.charset.Charset
 import java.util.*
 
 
@@ -54,6 +58,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val container = viewPager.findViewWithTag<View?>(viewPager.currentItem)
         val result = container?.findViewById<RecyclerView?>(R.id.recycler)
         return result
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_main_toolbar, menu)
+        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,7 +159,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         "quote" -> {
                             if (pathSegments.size >= 2) {
                                 addSheludePost {
-                                    quoteHelper.goToQuote(pathSegments[1], true)
+                                    quoteHelper.goToQuote(pathSegments[1], true, onWrongId = {
+                                        App.error(R.string.quote_wrong_id)
+                                    }, onNonexistentId = {
+                                        App.error(R.string.quote_nonexistent_id)
+                                    })
                                 }
                             } else {
                                 quoteHelper.discardCache()
@@ -159,12 +172,36 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         }
                         "index" -> {
                             quoteHelper.discardCache()
-                            link = Link.NEW
 
-                            if (pathSegments.size >= 2) {
-                                val index = max(1, pathSegments[1].toInt())
-                                quoteHelper.setupLoaderData(index.toString())
-                                quoteHelper.setupTitleName(resourceHelper.string(R.string.link_new_page, index))
+                            val queryKey = "text="
+                            val query = data.encodedQuery?.split("&")?.find {
+                                it.startsWith(queryKey)
+                            }
+                            val searchParameter = query?.subSequence(queryKey.length, query.length)
+                            if (searchParameter != null) {
+                                link = Link.SEARCH
+
+                                val parameters = searchParameter.split("+")
+
+                                val words = parameters.map{
+                                    URLDecoder.decode(it, "cp1251")
+                                }.map {
+                                    resourceHelper.string(R.string.link_search, it)
+                                }
+                                val title = words.joinToString(", ")
+
+                                val loaderData = parameters.joinToString("+")
+
+                                quoteHelper.setupTitleName(title)
+                                quoteHelper.setupLoaderData(loaderData)
+                            } else {
+                                link = Link.NEW
+
+                                if (pathSegments.size >= 2) {
+                                    val index = max(1, pathSegments[1].toInt())
+                                    quoteHelper.setupLoaderData(index.toString())
+                                    quoteHelper.setupTitleName(resourceHelper.string(R.string.link_new_page, index))
+                                }
                             }
                         }
                         "random" -> {
@@ -293,7 +330,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         loadQuotes(link)
     }
 
-    private fun loadQuotes(link: Link) {
+    fun loadQuotes(link: Link) {
         setupQuoteAdapter(link)
 
         val titleName = quoteHelper.getTitleName()
@@ -330,7 +367,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         for (notLink in Link.values().filterNot{it == link}) {
 
             navigationView.menu.findItem(when (notLink) {
-
                 Link.RANDOM_ONLINE -> R.id.navRandomOnline
                 Link.RANDOM_OFFLINE -> R.id.navRandomOffline
 
@@ -346,7 +382,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 Link.FAVORITE -> R.id.navFavorite
                 Link.COMICS -> R.id.navComics
 
-                else -> R.id.navNew
+                else -> R.id.none
             })?.isChecked = false
 
         }
@@ -368,7 +404,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             Link.FAVORITE -> R.id.navFavorite
             Link.COMICS -> R.id.navComics
 
-            else -> R.id.navNew
+            else -> R.id.none
         })?.isChecked = true
 
     }
@@ -454,6 +490,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         navigationView.menu.findItem(R.id.navAbyssBest).setVisible(visibility)
 
         navigationView.menu.findItem(R.id.navAbyssTitle).setTitle(if (visibility) R.string.link_abyss_title_up else R.string.link_abyss_title_down)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.search -> {
+                toolbar.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+                quoteHelper.searchQuoteDialog(this)
+            }
+        }
+        return true
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

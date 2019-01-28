@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.header_bottom.view.*
 import kotlinx.android.synthetic.main.quote_body.view.*
 import kotlinx.android.synthetic.main.quote_header.view.*
 import kotlinx.android.synthetic.main.quote_layout.view.*
+import kotlinx.android.synthetic.main.search_dialog_layout.view.*
+import java.net.URLEncoder
 import java.util.*
 
 class QuoteHelper(private val inflaterHelper: InflaterHelper,
@@ -155,6 +157,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             minValue = firstDay.get(Calendar.DAY_OF_MONTH)
             maxValue = lastDay.get(Calendar.DAY_OF_MONTH)
         }
+
         when(dataType) {
             Calendar.YEAR -> {
                 root.monthPicker.visibility = View.GONE
@@ -189,6 +192,57 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         lastDialog?.show()
     }
 
+    fun searchQuoteDialog(activity: MainActivity) {
+        @SuppressLint("InflateParams")
+        val root = inflaterHelper.inflate(R.layout.search_dialog_layout, null)
+
+        lastDialog = AlertDialog.Builder(activity, R.style.Dialog)
+                .setView(root)
+                .setCancelable(true)
+                .setPositiveButton(R.string.link_search_ok){ dialog, _->
+                    lastDialog = null
+                    dialog.dismiss()
+
+                    val searchText = root.query.text
+                    val searchKeys = searchText?.split(" ")?.filter { it.isNotEmpty() }
+
+                    if (searchKeys != null && searchKeys.isNotEmpty()) {
+                        val search = {
+                            discardCache()
+
+                            val title = searchKeys.map{
+                                resourceHelper.string(R.string.link_search, it)
+                            }.joinToString(", ")
+                            val query = URLEncoder.encode(searchKeys.joinToString("+"), "cp1251")
+
+                            setupTitleName(title)
+                            setupLoaderData(query)
+
+                            activity.loadQuotes(Link.SEARCH)
+                        }
+
+                        val quoteId = searchKeys.get(0).toIntOrNull()
+
+                        if (searchKeys.size == 1 && quoteId != null) {
+                            goToQuote(quoteId.toString(), mayBeWrongId = true, onWrongId = search, onNonexistentId = search)
+                        } else {
+                            search()
+                        }
+                    }
+                }
+                .setNegativeButton(R.string.link_search_cancel){ dialog, _->
+                    lastDialog = null
+                    dialog.dismiss()
+                }
+                .setOnCancelListener{
+                    lastDialog = null
+                }
+                .setTitle(R.string.link_search_title)
+                .create()
+
+        lastDialog?.show()
+    }
+
     private var lastDialogId: String? = null
     private var lastActivityName: String = ""
 
@@ -201,7 +255,8 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         }
     }
 
-    fun goToQuote(id: String, mayBeWrongId: Boolean = false) {
+    fun goToQuote(id: String, mayBeWrongId: Boolean = false,
+                  onWrongId: () -> Unit = {}, onNonexistentId: () -> Unit = {}) {
         if (lastDialog != null) {
             try {
                 lastDialog?.dismiss()
@@ -244,7 +299,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             Log.i("QuoteDialog", "Quote showed = $id")
             SingleQuoteLoader.loadQuote(id, onLoaded = {
                 if (id != it.id) {
-                    App.error(R.string.quote_nonexistent_id)
+                    onNonexistentId()
                     closeDialog()
                     return@loadQuote
                 }
@@ -260,7 +315,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         } else {
             val intId = id.toInt()
             if (intId < 1) {
-                App.error(R.string.quote_wrong_id)
+                onWrongId()
                 return
             }
 
@@ -269,7 +324,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
                 Log.i("QuoteDialog", "Quote count = $it")
                 Log.i("QuoteDialog", "Quote current = $intId or $id")
                 if (intId > it) {
-                    App.error(R.string.quote_wrong_id)
+                    onWrongId()
                     closeDialog()
                 } else {
                     showQuote()

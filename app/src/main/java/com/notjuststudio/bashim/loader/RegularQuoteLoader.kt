@@ -76,8 +76,6 @@ class RegularQuoteLoader(val link: Link, val defaultData: String = "") : BaseLoa
             builder.append("https://bash.im")
 
             builder.append(when (loader.link) {
-                Link.NEW -> ""
-
                 Link.RANDOM_ONLINE -> "/random"
 
                 Link.BEST_TODAY -> "/best"
@@ -105,6 +103,8 @@ class RegularQuoteLoader(val link: Link, val defaultData: String = "") : BaseLoa
                 Link.BEST_MONTH,
                 Link.BEST_YEAR,
                 Link.ABYSS_BEST -> builder.append("/").append(loader.nextData).toString()
+
+                Link.SEARCH -> builder.append("/index?text=").append(loader.nextData).toString()
 
                 else -> builder.toString()
             }
@@ -211,7 +211,11 @@ class RegularQuoteLoader(val link: Link, val defaultData: String = "") : BaseLoa
         override fun onPostExecute(result: Boolean?) {
             if (result == true) {
                 onFirstLoaded.invoke()
-                onLoaded.invoke(quotes)
+                if (quotes.size <= 0) {
+                    onNothingToLoad.invoke()
+                } else {
+                    onLoaded.invoke(quotes)
+                }
                 onDoneLoading.invoke()
             } else {
                 onDoneLoading.invoke()
