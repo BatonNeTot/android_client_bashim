@@ -330,8 +330,14 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         root.quoteShare.setImageResource(resourceHelper.drawableIdFromAttr(R.attr.quoteShare))
         root.quoteShare.setOnClickListener{
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            if (activity != null)
-                interactionHelper.share(activity, quote.text)
+            if (activity != null) {
+                val shareText = if (type.canLink) {
+                    resourceHelper.string(R.string.quote_share_form_with_id, quote.id, quote.text)
+                } else {
+                    resourceHelper.string(R.string.quote_share_form, quote.text)
+                }
+                interactionHelper.share(activity, shareText)
+            }
         }
 
         root.quoteCopy.setImageResource(resourceHelper.drawableIdFromAttr(R.attr.quoteCopy))
@@ -452,8 +458,6 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
                         quote.isVoting = true
                         QuoteRater.rate(quote, Rating.RULEZ,
                                 Rate(root, quote, Rating.RULEZ), RestoreQuote(quote))
-//                        rateHelper.rateQuote(quoteId = quote.id ?: "", rating = Rating.RULEZ,
-//                                onDone = Rate(root, quote, Rating.RULEZ), onFail = RestoreQuote(quote))
                     }
                 }
             }
