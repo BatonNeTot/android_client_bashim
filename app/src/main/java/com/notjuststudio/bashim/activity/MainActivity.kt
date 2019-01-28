@@ -415,6 +415,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val link = link()
 
+        quoteHelper.setupTitleName(supportActionBar?.title?.toString() ?: "")
         quoteHelper.setupPosition(link, viewPager.currentItem, pos,
                 (-(view?.top ?: 0)))
 
