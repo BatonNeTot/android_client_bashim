@@ -150,7 +150,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         "quote" -> {
                             if (pathSegments.size >= 2) {
                                 addSheludePost {
-                                    quoteHelper.goToQuote(pathSegments[1])
+                                    quoteHelper.goToQuote(pathSegments[1], true)
                                 }
                             } else {
                                 quoteHelper.discardCache()

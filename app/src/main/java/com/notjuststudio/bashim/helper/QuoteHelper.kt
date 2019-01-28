@@ -17,6 +17,7 @@ import com.notjuststudio.bashim.activity.ComicsActivity
 import com.notjuststudio.bashim.activity.MainActivity
 import com.notjuststudio.bashim.loader.SingleQuoteLoader
 import com.notjuststudio.bashim.common.*
+import com.notjuststudio.bashim.loader.CountQuoteLoader
 import kotlinx.android.synthetic.main.date_dialog_layout.view.*
 import kotlinx.android.synthetic.main.header_bottom.view.*
 import kotlinx.android.synthetic.main.quote_body.view.*
@@ -200,7 +201,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         }
     }
 
-    fun goToQuote(id: String) {
+    fun goToQuote(id: String, mayBeWrongId: Boolean = false) {
         if (lastDialog != null) {
             try {
                 lastDialog?.dismiss()
@@ -214,31 +215,68 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         @SuppressLint("InflateParams")
         val root = inflaterHelper.inflate(R.layout.quote_layout, null)
 
-        Log.i("QuoteDialog", "Activity = $activity, localClassName = ${activity?.localClassName}")
+        val clearDialog = {
+            lastDialog = null
+            lastDialogId = null
+            lastActivityName = ""
+        }
+
 
         lastDialog = AlertDialog.Builder(activity, R.style.Dialog)
                 .setView(root)
                 .setCancelable(true)
                 .setOnCancelListener {
-                    lastDialog = null
-                    lastDialogId = null
-                    lastActivityName = ""
+                    clearDialog()
                 }
                 .create()
 
-        SingleQuoteLoader.loadQuote(id, onLoaded = {
-            setupQuote(0, QuoteType.SINGLE, root.container, it)
-            root.loading.visibility = View.GONE
-            root.container.visibility = View.VISIBLE
-        }, onFailed = {
-            App.error(R.string.quotes_load_error)
+        val closeDialog = {
             lastDialog?.dismiss()
-            lastDialog = null
-            lastDialogId = null
-            lastActivityName = ""
-        })
+            clearDialog()
+        }
 
-        lastDialog?.show()
+        val onError = {
+            App.error(R.string.quotes_load_error)
+            closeDialog()
+        }
+
+        val showQuote = {
+            Log.i("QuoteDialog", "Quote showed = $id")
+            SingleQuoteLoader.loadQuote(id, onLoaded = {
+                if (id != it.id) {
+                    App.error(R.string.quote_nonexistent_id)
+                    closeDialog()
+                    return@loadQuote
+                }
+                setupQuote(0, QuoteType.SINGLE, root.container, it)
+                root.loading.visibility = View.GONE
+                root.container.visibility = View.VISIBLE
+            }, onFailed = onError)
+        }
+
+        if (!mayBeWrongId) {
+            lastDialog?.show()
+            showQuote()
+        } else {
+            val intId = id.toInt()
+            if (intId < 1) {
+                App.error(R.string.quote_wrong_id)
+                return
+            }
+
+            lastDialog?.show()
+            CountQuoteLoader.loadQuote(onLoaded = {
+                Log.i("QuoteDialog", "Quote count = $it")
+                Log.i("QuoteDialog", "Quote current = $intId or $id")
+                if (intId > it) {
+                    App.error(R.string.quote_wrong_id)
+                    closeDialog()
+                } else {
+                    showQuote()
+                }
+            }, onFailed = onError)
+        }
+
     }
 
     fun goToComics(index: Int) {

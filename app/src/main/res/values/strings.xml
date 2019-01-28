@@ -53,6 +53,9 @@
     <string name="quote_rating_success">Ваш голос учтен</string>
     <string name="quote_rating_error">Произошла ошибка при голосовании</string>
 
+    <string name="quote_wrong_id">Неверный номер цитаты</string>
+    <string name="quote_nonexistent_id">Цитата не существует</string>
+
     <string name="quote_copy_success">Текст скопирован</string>
 
     <string name="date_picker_title">Выберите дату</string>
