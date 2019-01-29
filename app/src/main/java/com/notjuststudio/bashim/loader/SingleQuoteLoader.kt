@@ -73,10 +73,15 @@ class SingleQuoteLoader {
                 if (quotesRatingArray.size != 0) {
                     rating = quotesRatingArray.get(0).text()
                 }
+                val quotesComicsArray = quoteElement.getElementsByAttributeValue("class", "comics")
+                var comics: String? = null
+                if (quotesComicsArray.size != 0) {
+                    comics = quotesComicsArray.get(0).attr("href")
+                }
 
                 val fav = dbHelper.isFavorite(quoteId.toInt())
 
-                quote = Quote(quoteId, rating, quoteDate, quoteText, fav)
+                quote = Quote(quoteId, rating, quoteDate, quoteText, fav, comics)
 
 
                 return true

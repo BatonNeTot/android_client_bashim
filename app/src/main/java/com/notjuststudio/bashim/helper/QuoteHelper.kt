@@ -282,7 +282,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         }
     }
 
-    fun goToQuote(id: String, mayBeWrongId: Boolean = false,
+    fun goToQuote(id: String, fromComics: Boolean = false, mayBeWrongId: Boolean = false,
                   onWrongId: () -> Unit = {}, onNonexistentId: () -> Unit = {}) {
         if (lastDialog != null) {
             try {
@@ -330,7 +330,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
                     closeDialog()
                     return@loadQuote
                 }
-                setupQuote(0, QuoteType.SINGLE, root.container, it)
+                setupQuote(0, QuoteType.SINGLE, root.container, it, fromComics)
                 root.loading.visibility = View.GONE
                 root.container.visibility = View.VISIBLE
             }, onFailed = onError)

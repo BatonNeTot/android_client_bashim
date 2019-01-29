@@ -49,7 +49,7 @@ class ComicsBodyPagerAdapter(private val activity: ComicsActivity) : PagerAdapte
                     container.quoteId.paintFlags = (container.quoteId.paintFlags or Paint.UNDERLINE_TEXT_FLAG)
                     container.quoteId.setOnClickListener{
                         it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                        quoteHelper.goToQuote(quoteId)
+                        quoteHelper.goToQuote(quoteId, true)
                     }
                 } else {
                     container.quoteContainer.visibility = View.GONE
