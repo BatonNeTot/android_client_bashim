@@ -27,8 +27,6 @@ class ComicsBodyPagerAdapter(private val activity: ComicsActivity) : PagerAdapte
             if (position + 1 == comicsHelper.getComicsCount() && comicsHelper.getYearCount() < comicsHelper.getRefsCount()) {
                 comicsHelper.loadYear(comicsHelper.getRef(comicsHelper.getRefsCount() - 1), onDone = {
                     this@ComicsBodyPagerAdapter.notifyDataSetChanged()
-                }, onFail = {
-                    App.error(R.string.download_error)
                 })
             }
             comicsHelper.loadBody(position, {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,6 +18,26 @@
         style="@style/Link"
 
         android:text="#12314"
+        tools:ignore="HardcodedText"
+        android:textSize="@dimen/quote_header_text_size"
+        android:gravity="center" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/quoteComics"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/quote_rate_button_height"
+
+        android:layout_marginEnd="@dimen/quote_margin"
+        android:layout_marginRight="@dimen/quote_margin"
+
+        style="@style/Comics"
+
+        android:text="@string/comics"
         android:textSize="@dimen/quote_header_text_size"
         android:gravity="center" />
 
@@ -36,6 +57,7 @@
         style="@style/Date"
 
         android:text="00.00.00 00:00"
+        tools:ignore="HardcodedText"
         android:textSize="@dimen/quote_header_text_size"
         android:gravity="center" />
 

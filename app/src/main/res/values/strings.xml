@@ -191,6 +191,7 @@
 
     <string name="comics_header">Миниатюра комикса, открыть комикс</string>
     <string name="comics">Комикс</string>
+    <string name="comics_not_found">Комикс не найден</string>
     <string name="comics_need_to_update">Обновите страницу</string>
     <string name="comics_bottom_author">Нарисовал(а) </string>
     <string name="comics_bottom_before_quote"> по мотивам </string>

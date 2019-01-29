@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView
 import com.notjuststudio.bashim.helper.QuoteHelper
 import com.notjuststudio.bashim.proto.BaseActivity
 import android.os.Build
+import com.notjuststudio.bashim.helper.ComicsHelper
 import com.notjuststudio.bashim.helper.QuoteHelper.Companion.FIRST_MONTH
 import com.notjuststudio.bashim.helper.QuoteHelper.Companion.FIRST_YEAR
 import com.notjuststudio.bashim.loader.FavoriteQuotesLoader
@@ -46,6 +47,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     @Inject
     lateinit var quoteHelper: QuoteHelper
+
+    @Inject
+    lateinit var comicsHelper: ComicsHelper
 
     private fun link() : Link {
         return (viewPager.adapter as? LinkPagerAdapter)?.link ?: Link.NONE
@@ -289,6 +293,64 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 }
                             }
                         }
+                        "comics-calendar" -> {
+                            if (pathSegments.size >= 2) {
+                                val year = pathSegments[1].toIntOrNull()
+                                if (year != null) {
+                                    addSheludePost {
+                                        val dialog = quoteHelper.loadingDialog()
+                                        comicsHelper.findYearIndex(year, {
+                                            loadOtherQuotes(Link.COMICS)
+
+                                            viewPager.currentItem = it
+
+                                            addSheludePost {
+                                                dialog.dismiss()
+                                            }
+                                        }, {
+                                            dialog.dismiss()
+                                        })
+                                    }
+                                } else {
+                                    quoteHelper.discardCache()
+                                    link = Link.COMICS
+                                }
+                            } else {
+                                quoteHelper.discardCache()
+                                link = Link.COMICS
+                            }
+                        }
+                        "comics" -> {
+                            if (pathSegments.size >= 2) {
+                                val dateCode = pathSegments[1].toIntOrNull()
+                                if (dateCode != null && pathSegments[1].length == 8) {
+                                    addSheludePost {
+                                        quoteHelper.goToComics("/comics/$dateCode")
+                                    }
+                                } else {
+                                    App.error(R.string.comics_not_found)
+                                }
+                            } else {
+                                if (comicsHelper.getYearCount() <= 0) {
+                                    addSheludePost {
+                                        val dialog = quoteHelper.loadingDialog()
+                                        comicsHelper.loadYear(comicsHelper.getRef(0), {
+                                            quoteHelper.goToComics(0)
+
+                                            addSheludePost {
+                                                dialog.dismiss()
+                                            }
+                                        }, {
+                                            dialog.dismiss()
+                                        })
+                                    }
+                                } else {
+                                    addSheludePost {
+                                        quoteHelper.goToComics(0)
+                                    }
+                                }
+                            }
+                        }
                         else -> {
                             quoteHelper.discardCache()
                             link = Link.NEW
@@ -298,12 +360,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             } else if (intent.action == ACTION_LINK) {
                 quoteHelper.discardCache()
                 link = Link.fromInt((intent.extras?.get(MainActivity.ACTION_LINK) as Int?) ?: -1)
-            } else {
-                val savedLink = quoteHelper.getLink()
-                if (savedLink != Link.NONE)
-                    link = savedLink
             }
         }
+
+        val savedLink = quoteHelper.getLink()
+        if (savedLink != Link.NONE)
+            link = savedLink
 
         loadQuotes(link)
     }
@@ -375,7 +437,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun saveQuoteState() {
-        Log.i("Quotes", "Create saves")
         val pos = (recycler()?.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: 0
         val view = recycler()?.findViewWithTag<View>(pos)
 
@@ -525,9 +586,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == COMICS && resultCode == RESULT_OK) {
             val index = data?.extras?.getInt(ComicsActivity.COMICS_ID, 0) ?: 0
-            Log.i("ComicsAdapter","Before update")
-            (viewPager.adapter as ComicsHeaderPagerAdapter).update(index)
-            Log.i("ComicsAdapter","After update")
+            (viewPager.adapter as? ComicsHeaderPagerAdapter)?.update(index)
         } else {
             if (quoteHelper.isNeedUpdateTheme()) {
                 quoteHelper.saveUpdateTheme(false)

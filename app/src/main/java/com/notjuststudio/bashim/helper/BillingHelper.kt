@@ -36,6 +36,8 @@ class BillingHelper(val context: Context) {
         })
     }
 
+    private var onDone: (() -> Unit)? = null
+
     private fun purchaseDialog(activity: Activity, onDone: () -> Unit) {
         val flowParams = BillingFlowParams.newBuilder()
                 .setSkuDetails(SkuDetails("""{
@@ -43,13 +45,13 @@ class BillingHelper(val context: Context) {
                         "type": "${BillingClient.SkuType.INAPP}"
                     }"""))
                 .build()
+        this.onDone = onDone
         val responseCode = billingClient.launchBillingFlow(activity, flowParams)
         if (responseCode != BillingClient.BillingResponse.OK) {
-            Log.i("Billing", "Billing error: responseCode = $responseCode")
+            Log.i("Billing", "Billing offer error: responseCode = $responseCode")
         } else {
-            Log.i("Billing", "Billing success?: responseCode = $responseCode")
+            Log.i("Billing", "Billing offer success?: responseCode = $responseCode")
         }
-        onDone()
     }
 
     private inner class  BillingListener : PurchasesUpdatedListener {
@@ -72,6 +74,11 @@ class BillingHelper(val context: Context) {
                     }
             } else {
                 // Handle any other error codes.
+            }
+            if (onDone != null) {
+                val onDone = this@BillingHelper.onDone
+                this@BillingHelper.onDone = null
+                onDone?.invoke()
             }
 
         }

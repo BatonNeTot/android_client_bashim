@@ -2,6 +2,7 @@ package com.notjuststudio.bashim.activity
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
@@ -11,6 +12,7 @@ import android.content.DialogInterface
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import com.notjuststudio.bashim.*
@@ -159,7 +161,7 @@ class SettingsActivity : BaseActivity() {
                         .setView(root)
                         .setCancelable(true)
                         .setPositiveButton(R.string.date_picker_ok){ dialog, _->
-                            val count = root.count.text.toString().toInt()
+                            val count = root.countText.text.toString().toInt()
                             dialog.dismiss()
 
                             if (count <= 0) {
@@ -186,8 +188,8 @@ class SettingsActivity : BaseActivity() {
                         .setTitle(R.string.download_count)
                         .create()
 
-                root.count.setText(LOAD_COUNT.toString())
-                root.count.addTextChangedListener(object : TextWatcher{
+                root.countText.setText(LOAD_COUNT.toString())
+                root.countText.addTextChangedListener(object : TextWatcher{
 
                     var skip = false
 
@@ -214,6 +216,16 @@ class SettingsActivity : BaseActivity() {
                 })
 
                 dialog.show()
+
+
+
+                addSheludePost {
+                    root.countText.requestFocus()
+                    addSheludePost {
+                        val keyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                        keyboard?.showSoftInput(root.countText, 0)
+                    }
+                }
 
             }, onFailed = {
                 App.error(R.string.quotes_load_error)

@@ -49,7 +49,6 @@ class ComicsHeaderPagerAdapter(val pager: ViewPager) : LinkPagerAdapter(Link.COM
                     recyclerAdapter.update()
                 }, onFail = {
                     container.refresher.isRefreshing = false
-                    App.error(R.string.quotes_load_error)
                     if (yearIndex == 0) {
                         this@ComicsHeaderPagerAdapter.notifyDataSetChanged()
                     }

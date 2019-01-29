@@ -45,7 +45,8 @@ class HelperModule {
                            interaction: InteractionHelper,
                            dataBase: DataBaseHelper,
                            activityProvider: ActivityProvider,
-                           sharedPref: SharedPrefHelper) = QuoteHelper(inflater, resource, interaction, dataBase, activityProvider, sharedPref)
+                           sharedPref: SharedPrefHelper,
+                           comicsHelper: ComicsHelper) = QuoteHelper(inflater, resource, interaction, dataBase, activityProvider, sharedPref, comicsHelper)
 
     @Provides
     @Singleton

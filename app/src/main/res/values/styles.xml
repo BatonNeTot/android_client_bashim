@@ -143,6 +143,10 @@
         <item name="android:textColor">?attr/linkColor</item>
     </style>
 
+    <style name="Comics" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">?attr/linkColor</item>
+    </style>
+
     <style name="Date" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">?attr/dateColor</item>
     </style>

@@ -76,7 +76,7 @@ class QuoteRater {
 
                 if (result == true) {
                     rateHelper.rateQuote(quoteId = quote.id ?: "", rating = rating) {
-                        quote.isVoted = true
+                        quote.lastRating = rating
                         afterRated()
                         App.success(R.string.quote_rating_success)
                     }

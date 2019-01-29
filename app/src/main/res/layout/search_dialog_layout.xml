@@ -17,7 +17,7 @@
         android:layout_marginRight="@dimen/settings_margin">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/query"
+            android:id="@+id/queryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

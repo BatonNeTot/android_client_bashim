@@ -13,9 +13,9 @@ data class Quote(
         var value: String?,
         val date: String,
         val text: String,
-        var favorite: Boolean = false
+        var favorite: Boolean = false,
+        val comicsUrl: String? = null
 ) {
-    var isVoted = false
     var isVoting = false
     var countOfClicking = 0
     var currentSmiley = -1
@@ -80,7 +80,6 @@ data class ComicsUnit(
             comicsUrl, quoteId, authorName, authorUrl ->
             setup(comicsUrl, quoteId, authorName, authorUrl)
         }, onFail)
-        header.comicsId
     }
 
 }

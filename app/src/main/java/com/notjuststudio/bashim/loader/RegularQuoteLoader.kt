@@ -109,7 +109,7 @@ class RegularQuoteLoader(val link: Link, val defaultData: String = "") : BaseLoa
                 else -> builder.toString()
             }
 
-            Log.i("URL", "url=$urlString")
+//            Log.i("URL", "url=$urlString")
 
             val url = URL(urlString)
 
@@ -177,6 +177,11 @@ class RegularQuoteLoader(val link: Link, val defaultData: String = "") : BaseLoa
                         if (quotesRatingArray.size != 0) {
                             rating = quotesRatingArray.get(0).text()
                         }
+                        val quotesComicsArray = quote.getElementsByAttributeValue("class", "comics")
+                        var comics: String? = null
+                        if (quotesComicsArray.size != 0) {
+                            comics = quotesComicsArray.get(0).attr("href")
+                        }
                         val fav: Boolean
                         if (!(loader.link == Link.ABYSS_NEW || loader.link == Link.ABYSS_TOP || loader.link == Link.ABYSS_BEST)) {
                             fav = loader.dbHelper.isFavorite(quoteId?.toInt() ?: 0)
@@ -184,7 +189,7 @@ class RegularQuoteLoader(val link: Link, val defaultData: String = "") : BaseLoa
                             fav = false
                         }
 
-                        this.quotes.add(Quote(quoteId, rating, quoteDate, quoteText, fav))
+                        this.quotes.add(Quote(quoteId, rating, quoteDate, quoteText, fav, comics))
                     }
                 }
 

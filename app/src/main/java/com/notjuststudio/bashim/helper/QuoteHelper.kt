@@ -3,6 +3,7 @@ package com.notjuststudio.bashim.helper
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -26,17 +27,35 @@ import kotlinx.android.synthetic.main.quote_layout.view.*
 import kotlinx.android.synthetic.main.search_dialog_layout.view.*
 import java.net.URLEncoder
 import java.util.*
+import android.support.v4.content.ContextCompat.getSystemService
+import android.view.inputmethod.InputMethodManager
+
 
 class QuoteHelper(private val inflaterHelper: InflaterHelper,
                   private val resourceHelper: ResourceHelper,
                   private val interactionHelper: InteractionHelper,
                   private val dbHelper: DataBaseHelper,
                   private val activityProvider: ActivityProvider,
-                  private val sharedPrefHelper: SharedPrefHelper) {private val months: Array<String> = resourceHelper.stringArray(R.array.date_month).asList().toTypedArray()
+                  private val sharedPrefHelper: SharedPrefHelper,
+                  private val comicsHelper: ComicsHelper) {private val months: Array<String> = resourceHelper.stringArray(R.array.date_month).asList().toTypedArray()
 
     companion object {
         const val FIRST_YEAR = 2004
         const val FIRST_MONTH = Calendar.AUGUST
+    }
+
+    fun loadingDialog() : AlertDialog {
+        @SuppressLint("InflateParams")
+        val root = inflaterHelper.inflate(R.layout.loading_layout, null)
+
+        val dialog = AlertDialog.Builder(activityProvider.get(), R.style.Dialog)
+                .setView(root)
+                .setCancelable(false)
+                .create()
+
+        dialog.show()
+
+        return dialog
     }
 
     private var lastDialog: AlertDialog? = null
@@ -203,7 +222,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
                     lastDialog = null
                     dialog.dismiss()
 
-                    val searchText = root.query.text
+                    val searchText = root.queryText.text
                     val searchKeys = searchText?.split(" ")?.filter { it.isNotEmpty() }
 
                     if (searchKeys != null && searchKeys.isNotEmpty()) {
@@ -241,6 +260,14 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
                 .create()
 
         lastDialog?.show()
+
+        activity.addSheludePost {
+            root.queryText.requestFocus()
+            activity.addSheludePost {
+                val keyboard = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                keyboard?.showSoftInput(root.queryText, 0)
+            }
+        }
     }
 
     private var lastDialogId: String? = null
@@ -334,12 +361,33 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
 
     }
 
+    fun goToComics(url: String) {
+        val activity = activityProvider.get()
+        if (activity != null) {
+            val dialog = loadingDialog()
+            comicsHelper.findComicsIndex(url, {
+                goToComics(it)
+                activity.addSheludePost {
+                    dialog.dismiss()
+                }
+            }, {
+                App.error(R.string.comics_not_found)
+                dialog.dismiss()
+            }, {
+                dialog.dismiss()
+            })
+        }
+    }
+
     fun goToComics(index: Int) {
         val activity = activityProvider.get()
 
-        val intent = Intent(activity, ComicsActivity::class.java)
-        intent.putExtra(ComicsActivity.COMICS_ID, index)
-        activity?.startActivityForResult(intent, MainActivity.COMICS)
+        if (activity != null) {
+            val intent = Intent(activity, ComicsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            intent.putExtra(ComicsActivity.COMICS_ID, index)
+            activity.startActivityForResult(intent, MainActivity.COMICS)
+        }
     }
 
     private inner class Rate(val container: View, val quote: Quote, val rating: com.notjuststudio.bashim.common.Rating) : () -> Unit {
@@ -410,7 +458,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         }
     }
 
-    fun setupQuote(index: Int, type: QuoteType, root: View, quote: Quote,
+    fun setupQuote(index: Int, type: QuoteType, root: View, quote: Quote, fromComics: Boolean = false,
                    onFavorite: (id: String) -> Unit = {},
                    onUnfavorite: (id: String) -> Unit = {}) {
         val activity = activityProvider.get()
@@ -501,6 +549,19 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             }
         }
 
+        if (!fromComics && quote.comicsUrl != null) {
+            root.quoteComics.visibility = View.VISIBLE
+            root.quoteComics.paintFlags = (root.quoteId.paintFlags or Paint.UNDERLINE_TEXT_FLAG)
+            root.quoteComics.setOnClickListener {
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                goToComics(quote.comicsUrl)
+            }
+        } else {
+            root.quoteComics.visibility = View.GONE
+            root.quoteComics.paintFlags = (root.quoteId.paintFlags and Paint.UNDERLINE_TEXT_FLAG.inv())
+            root.quoteComics.setOnClickListener {}
+        }
+
         if (type.canVote) {
             root.quoteRatingMinus.visibility = View.VISIBLE
             root.quoteRatingMinus.setImageResource(
@@ -538,7 +599,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             root.quoteRatingMinus.setOnClickListener {
                 it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 if (!quote.isVoting) {
-                    if (quote.isVoted) {
+                    if (quote.lastRating != null) {
                         alreadyRated(root, quote, Rating.SUX)
                     } else {
                         quote.isVoting = true
@@ -550,7 +611,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             root.quoteRatingPlus.setOnClickListener {
                 it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 if (!quote.isVoting) {
-                    if (quote.isVoted) {
+                    if (quote.lastRating != null) {
                         alreadyRated(root, quote, Rating.RULEZ)
                     } else {
                         quote.isVoting = true
@@ -562,7 +623,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             root.quoteRatingBayan.setOnClickListener {
                 it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 if (!quote.isVoting) {
-                    if (quote.isVoted) {
+                    if (quote.lastRating != null) {
                         alreadyRated(root, quote, Rating.BAYAN)
                     } else {
                         quote.isVoting = true
@@ -700,7 +761,6 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
     }
 
     fun discardCache() {
-        Log.i("Quotes", "Discard saves")
         getTitleName()
 
         getLink()

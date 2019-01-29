@@ -57,7 +57,7 @@ open class QuoteAdapter(val type: QuoteType) : RecyclerView.Adapter<QuoteAdapter
         // - replace the contents of the view with that element
         val quote = dataset[index]
 
-        quoteHelper.setupQuote(index, type, holder.container, quote, {onFavorite(it)}, {onUnfavorite(it)})
+        quoteHelper.setupQuote(index, type, holder.container, quote, false, {onFavorite(it)}, {onUnfavorite(it)})
 
     }
 
