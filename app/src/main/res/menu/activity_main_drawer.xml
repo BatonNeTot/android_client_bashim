@@ -8,56 +8,72 @@
         android:id="@+id/groupLink"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/navNone"
+            android:visible="false"
+            android:title="@string/app_name"/>
+        <item
             android:id="@+id/navNew"
             android:title="@string/link_new"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navRandomTitle"
             android:title="@string/link_random_title_down"
+            android:checkable="false"
             app:actionViewClass="android.widget.TextView" />
         <item
             android:id="@+id/navRandomOnline"
             android:title="@string/link_random_online"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView" />
         <item
             android:id="@+id/navRandomOffline"
             android:title="@string/link_random_offline"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView" />
         <item
             android:id="@+id/navBestTitle"
             android:title="@string/link_best_title_down"
+            android:checkable="false"
             app:actionViewClass="android.widget.TextView" />
         <item
             android:id="@+id/navBestToday"
             android:title="@string/link_best_today"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navBestMonth"
             android:title="@string/link_best_month"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navBestYear"
             android:title="@string/link_best_year"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navBestAll"
             android:title="@string/link_best_all"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navAbyssTitle"
             android:title="@string/link_abyss_title_down"
+            android:checkable="false"
             app:actionViewClass="android.widget.TextView" />
         <item
             android:id="@+id/navAbyssNew"
             android:title="@string/link_abyss_new"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navAbyssTop"
             android:title="@string/link_abyss_top"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navAbyssBest"
             android:title="@string/link_abyss_best"
+            android:visible="false"
             app:actionViewClass="android.widget.TextView"/>
         <item
             android:id="@+id/navFavorite"

@@ -102,23 +102,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
 
         navigationView.setNavigationItemSelectedListener(this)
-        navigationView.menu.apply {
-            findItem(R.id.navRandomTitle).isCheckable = false
-            findItem(R.id.navBestTitle).isCheckable = false
-            findItem(R.id.navAbyssTitle).isCheckable = false
-
-            findItem(R.id.navRandomOnline).isVisible = false
-            findItem(R.id.navRandomOffline).isVisible = false
-
-            findItem(R.id.navBestToday).isVisible = false
-            findItem(R.id.navBestMonth).isVisible = false
-            findItem(R.id.navBestYear).isVisible = false
-            findItem(R.id.navBestAll).isVisible = false
-
-            findItem(R.id.navAbyssNew).isVisible = false
-            findItem(R.id.navAbyssTop).isVisible = false
-            findItem(R.id.navAbyssBest).isVisible = false
-        }
 
         viewPager.offscreenPageLimit = 2
         pagerDateStrip.visibility = View.GONE
@@ -364,30 +347,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun setupDrawer(link: Link) {
-        for (notLink in Link.values().filterNot{it == link}) {
+        navigationView.menu.findItem(R.id.navNone).isVisible = true
 
-            navigationView.menu.findItem(when (notLink) {
-                Link.RANDOM_ONLINE -> R.id.navRandomOnline
-                Link.RANDOM_OFFLINE -> R.id.navRandomOffline
-
-                Link.BEST_TODAY -> R.id.navBestToday
-                Link.BEST_MONTH -> R.id.navBestMonth
-                Link.BEST_YEAR -> R.id.navBestYear
-                Link.BEST_ALL -> R.id.navBestAll
-
-                Link.ABYSS_NEW -> R.id.navAbyssNew
-                Link.ABYSS_TOP -> R.id.navAbyssTop
-                Link.ABYSS_BEST -> R.id.navAbyssBest
-
-                Link.FAVORITE -> R.id.navFavorite
-                Link.COMICS -> R.id.navComics
-
-                else -> R.id.none
-            })?.isChecked = false
-
-        }
-
-        navigationView.menu.findItem(when(link) {
+        navigationView.menu.findItem(when (link) {
+            Link.NEW -> R.id.navNew
 
             Link.RANDOM_ONLINE -> R.id.navRandomOnline
             Link.RANDOM_OFFLINE -> R.id.navRandomOffline
@@ -404,12 +367,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             Link.FAVORITE -> R.id.navFavorite
             Link.COMICS -> R.id.navComics
 
-            else -> R.id.none
+            else -> R.id.navNone
         })?.isChecked = true
+
+        navigationView.menu.findItem(R.id.navNone).isVisible = false
 
     }
 
     private fun saveQuoteState() {
+        Log.i("Quotes", "Create saves")
         val pos = (recycler()?.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: 0
         val view = recycler()?.findViewWithTag<View>(pos)
 

@@ -22,14 +22,14 @@ data class Quote(
     var lastRating: Rating? = null
 }
 
-enum class QuoteType(val canLink: Boolean = true, val canFavorite: Boolean = true, val canVote: Boolean = true, val needTop: Boolean = false) {
+enum class QuoteType(val trueId: Boolean = true, val canLink: Boolean = true, val canFavorite: Boolean = true, val canVote: Boolean = true, val needTop: Boolean = false) {
     REGULAR(),
     COMICS(),
     SINGLE(canLink = false),
     RANDOM_OFFLINE(canVote = false),
-    ABYSS_NEW(canLink = false, canFavorite = false),
-    ABYSS_TOP(canLink = false, canFavorite = false, canVote = false, needTop = true),
-    ABYSS_BEST(canLink = false, canFavorite = false, canVote = false);
+    ABYSS_NEW(trueId = false, canLink = false, canFavorite = false),
+    ABYSS_TOP(trueId = false, canLink = false, canFavorite = false, canVote = false, needTop = true),
+    ABYSS_BEST(trueId = false, canLink = false, canFavorite = false, canVote = false);
 }
 
 enum class TitleType {

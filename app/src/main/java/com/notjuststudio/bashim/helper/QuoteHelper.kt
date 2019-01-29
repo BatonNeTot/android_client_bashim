@@ -425,7 +425,7 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             if (activity != null) {
                 val shareText = resourceHelper.string(R.string.quote_share_form,
-                        if (type.canLink) {
+                        if (type.trueId) {
                             resourceHelper.string(R.string.quote_id_form, quote.id)
                         } else {
                             resourceHelper.string(R.string.quote_share_abyss)
@@ -484,15 +484,18 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
         } else {
             root.quoteId.text = resourceHelper.string(R.string.quote_id_form, quote.id)
             root.quoteId.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
-            if (type.canLink) {
+            if (type.trueId) {
                 root.quoteId.setTextColor(resourceHelper.colorFromAttr(R.attr.linkColor))
+            } else {
+                root.quoteId.setTextColor(resourceHelper.colorFromAttr(R.attr.textColor))
+            }
+            if (type.canLink) {
                 root.quoteId.paintFlags = (root.quoteId.paintFlags or Paint.UNDERLINE_TEXT_FLAG)
                 root.quoteId.setOnClickListener {
                     it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     goToQuote(quote.id ?: "")
                 }
             } else {
-                root.quoteId.setTextColor(resourceHelper.colorFromAttr(R.attr.textColor))
                 root.quoteId.paintFlags = (root.quoteId.paintFlags and Paint.UNDERLINE_TEXT_FLAG.inv())
                 root.quoteId.setOnClickListener {}
             }
@@ -697,6 +700,9 @@ class QuoteHelper(private val inflaterHelper: InflaterHelper,
     }
 
     fun discardCache() {
+        Log.i("Quotes", "Discard saves")
+        getTitleName()
+
         getLink()
         getPagerIndex()
         getPagerPos()
